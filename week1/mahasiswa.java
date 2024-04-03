@@ -1,20 +1,32 @@
 package week1;
 import java.util.*;
+import java.util.Iterator;
+import java.util.ArrayList;
+import week5.Matakuliah;
 
 public class mahasiswa
 {
-    String[] nim, nama ;
-    int[] usia;
-    Double[]ipk;
+    private String nim;
+    private String nama;
+    private ArrayList<Double> nilai = new ArrayList<Double>();
+    private ArrayList<Matakuliah> mk = new ArrayList<Matakuliah>();
 
-    public mahasiswa(String[] nim, String[] nama, Double[] ipk, int[] usia)
+    public mahasiswa(String nama, String nim)
     {
         this.nim = nim;
         this.nama = nama;
-        this.ipk = ipk;
-        this.usia = usia;
 
 
+    }
+
+    public void insertNilai(double n1)
+    {
+         nilai.add(n1);
+    }
+
+    public void insertMatkul(String matkul, String kelompok1, int sks)
+    {
+        mk.add(new Matakuliah(matkul, kelompok1, sks));
     }
 
     public void belajar()
@@ -29,13 +41,36 @@ public class mahasiswa
 
     public void getIdentitas()
     {
-        for (int i = 0; i < nim.length; i++) {
-            System.out.println("Data mahasiswa ke- " + (i + 1));
-            System.out.println("Nim mahasiswa : " + nim[i]);
-            System.out.println("Nama  mahasiswa : " + nama[i]);
-            System.out.println("IPK :" + ipk[i]);
-            System.out.println("Usia Mahasiswa :" + usia[i]);
-        }
+            System.out.println("Nim mahasiswa : " + nim);
+            System.out.println("Nama  mahasiswa : " + nama);
+            getNilai();
         
+    }
+
+    public String getNama(){
+        return nama;
+    }
+
+    public void getNilai()
+    {
+        Iterator<Double> it = nilai.iterator();
+        while(it.hasNext())
+        {
+            System.out.println(it.next());
+        }
+    }
+
+    public void getMatkul()
+    {
+        Iterator <Matakuliah> matkul  = mk.iterator();
+        while(matkul.hasNext())
+        {
+            Matakuliah m = matkul.next();
+                
+                System.out.println(m.getNamaMatkul()+ " - " + m.getKelompok()+ " - " + m.getsks());
+        }
+    }
+    public String getNim(){
+        return nim;
     }
 }
