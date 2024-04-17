@@ -1,3 +1,6 @@
+package week6;
+
+
 public class Pegawai {
     private String nama;
     private String departemen;
