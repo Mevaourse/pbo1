@@ -41,8 +41,9 @@ public class mahasiswa
 
     public void getIdentitas()
     {
-            System.out.println("Nim mahasiswa : " + nim);
+            
             System.out.println("Nama  mahasiswa : " + nama);
+            System.out.println("Nim mahasiswa : " + nim);
             getNilai();
         
     }
