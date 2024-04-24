@@ -8,17 +8,24 @@ public class mahasiswa
 {
     private String nim;
     private String nama;
+    private String tanggal_lahir;
     private ArrayList<Double> nilai = new ArrayList<Double>();
     private ArrayList<Matakuliah> mk = new ArrayList<Matakuliah>();
 
-    public mahasiswa(String nama, String nim)
+    public mahasiswa(String nama, String nim, String tanggal_lahir)
     {
         this.nim = nim;
         this.nama = nama;
+        this.tanggal_lahir = tanggal_lahir;
 
 
     }
 
+    public mahasiswa( String nama, String nim)
+    {
+        this.nama = nama;
+        this.nim = nim;
+    }
     public void insertNilai(double n1)
     {
          nilai.add(n1);
@@ -51,7 +58,13 @@ public class mahasiswa
     public String getNama(){
         return nama;
     }
+    
+    
 
+    public String getTanggal_lahir()
+    {
+        return tanggal_lahir;
+    }
     public void getNilai()
     {
         Iterator<Double> it = nilai.iterator();
