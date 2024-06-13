@@ -1,4 +1,5 @@
 package pbomysqljava;
+
 import java.sql.*;
 import java.util.Scanner;
 
@@ -6,7 +7,7 @@ public class Koneksi {
 	static final String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
 	static final String DB_URL = "jdbc:mysql://127.0.0.1/latian";
 	static final String USER = "root";
-	static final String PASS = "danielnw123";
+	static final String PASS = "apahayojanganngintip";
 	
 	static Connection conn;
 	static Statement stmt;
@@ -19,7 +20,9 @@ public class Koneksi {
             System.out.println("1. Insert");
             System.out.println("2. Show");
             System.out.println("3. Hapus data");
-            System.out.println("4. Exit");
+            System.out.println("4. Edit data");
+            System.out.println("5. Exit");
+            
             System.out.print("Masukkan pilihan (1/2/3/4): ");
             int pilihan = scanner.nextInt();
             
@@ -33,13 +36,14 @@ public class Koneksi {
                 case 3:
                 	delete(scanner);
                 	break;
-		case 4:
-			edit(scanner);
-			break;
+                case 4:
+                	edit(scanner);
+                	break;
                 case 5:
                     System.out.println("Keluar dari program.");
                     scanner.close();
                     return;
+           
                 default:
                     System.out.println("Pilihan tidak valid.");
             }
@@ -145,50 +149,55 @@ public class Koneksi {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public static void edit(Scanner scanner) {
-       	 	System.out.print("Masukkan ID buku yang akan diedit: ");
-        	int id = scanner.nextInt();
-        	scanner.nextLine();  
-        
-        	System.out.print("Masukkan Judul Buku baru: ");
-        	String judul_buku = scanner.nextLine();
-        
-       		System.out.print("Masukkan Tahun Terbit baru: ");
-        	int tahun_terbit = scanner.nextInt();
-        
-        	System.out.print("Masukkan Stok baru: ");
-        	int stok = scanner.nextInt();
-        
-        	System.out.print("Masukkan Penulis baru (ID Penulis): ");
-        	int penulis = scanner.nextInt();
-        
-        	try {
-            		Class.forName(JDBC_DRIVER);
-            		conn = DriverManager.getConnection(DB_URL, USER, PASS);
-            		stmt = conn.createStatement();
-            
-	            	String sql = "UPDATE buku SET judul_buku = ?, tahun_terbit = ?, stok = ?, penulis = ? WHERE id = ?";
-            		PreparedStatement ps = conn.prepareStatement(sql);
-            
-            		ps.setString(1, judul_buku);
-           		ps.setInt(2, tahun_terbit);
-            		ps.setInt(3, stok);
-            		ps.setInt(4, penulis);
-            		ps.setInt(5, id);
-            
-            		int rowsAffected = ps.executeUpdate();
-            
-            		if (rowsAffected > 0) {
-                		System.out.println("Data berhasil diupdate.");
-            		} else {
-                		System.out.println("ID tidak ditemukan.");
-            		}
-            
-            		stmt.close();
-            		conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+		System.out.println("Masukkan ID Barang yang ingin diedit : ");
+		int id = scanner.nextInt();
+		
+		scanner.nextLine();
+		
+		
+		System.out.print("Masukkan Judul Buku baru: ");
+        String judul_buku = scanner.nextLine();
+		
+		System.out.println("Masukkan Tahun terbit baru : ");
+		int tahun_terbit = scanner.nextInt();
+		
+		System.out.println("Masukkan Stok Baru : ");
+		int stok = scanner.nextInt();
+		
+		System.out.println("Masukkan ID Penulis Baru : ");
+		int  penulis = scanner.nextInt();
+		
+		try {
+			Class.forName(JDBC_DRIVER);
+			conn = DriverManager.getConnection(DB_URL,USER,PASS);
+			stmt = conn.createStatement();
+			
+			String sql = "Update buku set judul_buku = ?, tahun_terbit = ?, stok = ?, penulis = ? where id = ?";
+			PreparedStatement ps = conn.prepareStatement(sql);
+			
+			ps.setString(1,judul_buku);
+			ps.setInt(2,tahun_terbit);
+			ps.setInt(3, stok);
+			ps.setInt(4, penulis);
+			ps.setInt(5,id);
+			
+			int rowAffected = ps.executeUpdate();
+			
+			if (rowAffected > 0)
+				{
+					System.out.println("Data berhasil diupdate");
+				}
+			else
+			{
+				System.out.println("ID invalid");
+			}
+			stmt.close();
+			conn.close();
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
