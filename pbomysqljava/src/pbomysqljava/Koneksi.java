@@ -33,7 +33,10 @@ public class Koneksi {
                 case 3:
                 	delete(scanner);
                 	break;
-                case 4:
+		case 4:
+			edit(scanner);
+			break;
+                case 5:
                     System.out.println("Keluar dari program.");
                     scanner.close();
                     return;
