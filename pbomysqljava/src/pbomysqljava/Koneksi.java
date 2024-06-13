@@ -142,4 +142,50 @@ public class Koneksi {
 			e.printStackTrace();
 		}
 	}
+
+	public static void edit(Scanner scanner) {
+       	 	System.out.print("Masukkan ID buku yang akan diedit: ");
+        	int id = scanner.nextInt();
+        	scanner.nextLine();  
+        
+        	System.out.print("Masukkan Judul Buku baru: ");
+        	String judul_buku = scanner.nextLine();
+        
+       		System.out.print("Masukkan Tahun Terbit baru: ");
+        	int tahun_terbit = scanner.nextInt();
+        
+        	System.out.print("Masukkan Stok baru: ");
+        	int stok = scanner.nextInt();
+        
+        	System.out.print("Masukkan Penulis baru (ID Penulis): ");
+        	int penulis = scanner.nextInt();
+        
+        	try {
+            		Class.forName(JDBC_DRIVER);
+            		conn = DriverManager.getConnection(DB_URL, USER, PASS);
+            		stmt = conn.createStatement();
+            
+	            	String sql = "UPDATE buku SET judul_buku = ?, tahun_terbit = ?, stok = ?, penulis = ? WHERE id = ?";
+            		PreparedStatement ps = conn.prepareStatement(sql);
+            
+            		ps.setString(1, judul_buku);
+           		ps.setInt(2, tahun_terbit);
+            		ps.setInt(3, stok);
+            		ps.setInt(4, penulis);
+            		ps.setInt(5, id);
+            
+            		int rowsAffected = ps.executeUpdate();
+            
+            		if (rowsAffected > 0) {
+                		System.out.println("Data berhasil diupdate.");
+            		} else {
+                		System.out.println("ID tidak ditemukan.");
+            		}
+            
+            		stmt.close();
+            		conn.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }
